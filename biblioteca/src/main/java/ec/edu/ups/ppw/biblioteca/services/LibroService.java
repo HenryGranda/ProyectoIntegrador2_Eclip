@@ -16,7 +16,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/libro")
+@Path("/libros")
 public class LibroService {
 
 	@Inject

@@ -1,10 +1,13 @@
 package ec.edu.ups.ppw.biblioteca.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +30,9 @@ public class Usuario {
 	
 	@Column(name="usu_role")
     private String role; // "USER" o "ADMIN"
+	
+	@OneToMany(mappedBy="usuario")
+    private List<Prestamo> prestamo;
 
     public Usuario() {
         // Constructor por defecto sin parámetros
@@ -81,6 +87,5 @@ public class Usuario {
 	public void setUsuarioId(int usuarioId) {
 		this.usuarioId = usuarioId;
 	}
-    
     
 }
