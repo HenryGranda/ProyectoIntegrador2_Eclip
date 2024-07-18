@@ -22,26 +22,29 @@ import jakarta.json.JsonObject;
 
 @Path("/auth")
 public class LoginServicio  {
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response validar (Usuario usuario) {
-		boolean status = UsuarioDAO.validar(usuario.getUsername(), usuario.getPassword());
-		if (status) {
-			String KEY = "mi_clave";
-			long tiempo = System.currentTimeMillis();
-			String jwt = Jwts.builder()
-					.signWith(SignatureAlgorithm.HS256, KEY)
-					.setSubject("Henry Granda")
-					.setIssuedAt(new Date (tiempo))
-					.setExpiration(new Date (tiempo +900000))
-					.claim("email", "henry123@gmail.com")
-					.compact();
-			JsonObject json = Json.createObjectBuilder()
-									.add("JWT", jwt).build();
-			return Response.status(Response.Status.CREATED).entity(json).build();
-		}
-		return Response.status(Response.Status.UNAUTHORIZED).build();
-	}
+	
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response validar(Usuario usuario) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario user = usuarioDAO.validar3(usuario.getUsername(), usuario.getPassword());
+        if (user != null) {
+            String KEY = "mi_clave";
+            long tiempo = System.currentTimeMillis();
+            String jwt = Jwts.builder()
+                    .signWith(SignatureAlgorithm.HS256, KEY)
+                    //.setSubject(user.getUsername())
+                    .setIssuedAt(new Date(tiempo))
+                    .setExpiration(new Date(tiempo + 900000))
+                    .claim("email", user.getEmail())
+                    .claim("role", user.getRole()) // Añadir el rol al token
+                    .compact();
+            JsonObject json = Json.createObjectBuilder()
+                    .add("JWT", jwt).build();
+            return Response.status(Response.Status.CREATED).entity(json).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
 
 }

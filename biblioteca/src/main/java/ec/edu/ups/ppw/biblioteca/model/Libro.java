@@ -33,6 +33,9 @@ public class Libro {
 	
 	@Column(name="lib_portada")
 	private String portada;
+	
+	@Column(name="lib_ejemplares")
+	private int ejemplares;
 
 	public int getLibroId() {
 		return libroId;
@@ -88,6 +91,14 @@ public class Libro {
 
 	public void setPortada(String portada) {
 		this.portada = portada;
+	}
+
+	public int getEjemplares() {
+		return ejemplares;
+	}
+
+	public void setEjemplares(int ejemplares) {
+		this.ejemplares = ejemplares;
 	}
 	
 	
