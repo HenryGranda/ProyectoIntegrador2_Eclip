@@ -38,7 +38,7 @@ public class GestionUsuarios {
 		daoUsuario.update(usuario);
 	}
 	
-	public void deleteLibro(int id) throws Exception{
+	public void deleteUsuario(int id) throws Exception{
 		Usuario usuario = daoUsuario.read(id);
 		if(usuario == null) {				
 			throw new Exception("Id no existe");
