@@ -6,6 +6,7 @@ import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import ec.edu.ups.ppw.biblioteca.util.PercistenceManager;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -48,30 +49,16 @@ public class UsuarioDAO {
 		return query.getResultList();
 	}
 	
-    /*public Usuario validar(String username, String password) {
-        EntityManager em = PercistenceManager.getEntityManager();
-        TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        try {
-            return query.getSingleResult();
-        } catch (Exception e) {
-            return null;
-        } finally {
-            em.close();
-        }
-    }*/
-    
-    public Usuario validar3(String username, String password) {
-        // Simulación de usuario válido
-        if (username.equals("usuario_prueba") && password.equals("contraseña_prueba")) {
-            return new Usuario("usuario_prueba","usuario_password", "usuario_prueba@gmail.com", "ROLE_USER");
-        }
-        return null; // Simulación de usuario no válido
-    }
-    
-    public static boolean validar(String username, String password) {
-		return (username.equals("admin") && password.equals("admin"));
+	public Usuario validarusu(String username, String password) {
+	    TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class);
+	    query.setParameter("username", username);
+	    query.setParameter("password", password);
+	    try {
+	        return query.getSingleResult();
+	    } catch (NoResultException e) {
+	        return null;
+	    }
 	}
+    
 
 }

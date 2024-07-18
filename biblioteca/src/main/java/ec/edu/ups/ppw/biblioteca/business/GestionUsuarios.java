@@ -6,9 +6,15 @@ import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
 
 @Stateless
 public class GestionUsuarios {
+	
+	@PersistenceContext(unitName = "bibliotecaPersistenceUnit")
+    private EntityManager em;
 	
 	@Inject
 	private UsuarioDAO daoUsuario;
@@ -48,5 +54,32 @@ public class GestionUsuarios {
 		}
 		
 	}
+	
+
+
+    public Usuario findByUsername(String username) {
+        String jpql = "SELECT u FROM Usuario u WHERE u.username = :username";
+        try {
+            return em.createQuery(jpql, Usuario.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (Exception e) {
+            // Manejar la excepción según tu aplicación
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public Usuario iniciarSesion(String username, String password) {
+        String jpql = "SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password";
+        try {
+            return em.createQuery(jpql, Usuario.class)
+                     .setParameter("username", username)
+                     .setParameter("password", password)
+                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
 }
