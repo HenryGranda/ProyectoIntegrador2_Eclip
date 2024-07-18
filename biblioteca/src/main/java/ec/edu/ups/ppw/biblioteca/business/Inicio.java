@@ -1,8 +1,13 @@
 package ec.edu.ups.ppw.biblioteca.business;
 
+import java.util.Date;
+
 import ec.edu.ups.ppw.biblioteca.dao.LibroDAO;
+import ec.edu.ups.ppw.biblioteca.dao.PrestamoDAO;
 import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
+import ec.edu.ups.ppw.biblioteca.model.DateUtil;
 import ec.edu.ups.ppw.biblioteca.model.Libro;
+import ec.edu.ups.ppw.biblioteca.model.Prestamo;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
@@ -19,6 +24,9 @@ public class Inicio {
 	@Inject
 	private UsuarioDAO daoUsuario;
 	
+	@Inject
+	private PrestamoDAO daoPrestamo;
+	
 	@PostConstruct
 	public void init(){
 		Libro libro = new Libro();
@@ -26,7 +34,6 @@ public class Inicio {
 		libro.setAutor("Henry Granda");
 		libro.setGenero("Ciencia Ficción");
 		libro.setEdicion(2);
-		libro.setEjemplares(30);
 		libro.setContenido("asdfasdasdasdasdasdas");
 		libro.setPortada("https://www.tematika.com/media/catalog/Ilhsa/Imagenes/701102.jpg");
 		daoLibro.insert(libro);
@@ -36,7 +43,6 @@ public class Inicio {
 		libro2.setAutor("Erick Zhigue");
 		libro2.setGenero("Ciencia Ficción");
 		libro2.setEdicion(2);
-		libro2.setEjemplares(30);
 		libro2.setContenido("asdfasdasdasdasdasdas");
 		libro2.setPortada("https://images.cdn2.buscalibre.com/fit-in/360x360/fa/14/fa148b6ed6ee485f82661b44d6fa1b80.jpg");
 		daoLibro.insert(libro2);
@@ -56,8 +62,21 @@ public class Inicio {
 		usuario2.setRole("user");
 		daoUsuario.insert(usuario2);
 		
+		Prestamo prestamo = new Prestamo();
+		prestamo.setUsuario(usuario2);
+		prestamo.setLibro(libro);
+		Date fechaPrestamo = DateUtil.createDate(2023, 7, 18);
+		Date fechaDevolucion = DateUtil.createDate(2023, 7, 25);
+		prestamo.setFechaPrestamo(fechaPrestamo);
+		prestamo.setFechaDevolucion(fechaDevolucion);
+		daoPrestamo.insert(prestamo);
 		
-		
-		
+		Prestamo prestamo2 = new Prestamo();
+		prestamo2.setUsuario(usuario);
+		prestamo2.setLibro(libro2);
+		prestamo2.setFechaPrestamo(fechaPrestamo);
+		prestamo2.setFechaDevolucion(fechaDevolucion);
+		daoPrestamo.insert(prestamo2);
+
 	}
 }
