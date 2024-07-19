@@ -91,7 +91,7 @@ public class LoginUsuarios {
             // Redirigir a Angular con el token JWT
             try {
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.sendRedirect("http://localhost:4200?token=" + jwt);
+                response.sendRedirect("http://localhost:4200/dashboard?token=" + jwt);
                 FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
             } catch (Exception e) {
                 e.printStackTrace();
