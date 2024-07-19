@@ -77,6 +77,8 @@ public class Inicio {
 		prestamo2.setFechaPrestamo(fechaPrestamo);
 		prestamo2.setFechaDevolucion(fechaDevolucion);
 		daoPrestamo.insert(prestamo2);
+		
+		System.out.println(prestamo2.toString());
 
 	}
 }

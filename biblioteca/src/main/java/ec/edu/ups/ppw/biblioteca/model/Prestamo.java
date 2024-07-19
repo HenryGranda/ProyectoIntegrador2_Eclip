@@ -7,14 +7,16 @@ import jakarta.persistence.*;
 @Table(name="TBL_PRESTAMO")
 public class Prestamo {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="pre_id")
     private int prestamoId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fecha_prestamo")
     private Date fechaPrestamo;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fecha_devolucion")
     private Date fechaDevolucion;
 
