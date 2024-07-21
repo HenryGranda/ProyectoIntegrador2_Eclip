@@ -31,6 +31,9 @@ public class Libro {
     @Column(name="lib_portada")
     private String portada;
     
+    @Column(name="lib_disponibilidad")
+    private Boolean disponibilidad;
+    
     @OneToMany(mappedBy="libro")
     private List<Prestamo> prestamo;
 
@@ -90,5 +93,15 @@ public class Libro {
     public void setPortada(String portada) {
         this.portada = portada;
     }
+
+	public Boolean getDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setDisponibilidad(Boolean disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+    
+    
 
 }

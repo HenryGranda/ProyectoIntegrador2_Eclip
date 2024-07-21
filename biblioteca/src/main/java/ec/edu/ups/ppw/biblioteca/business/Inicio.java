@@ -36,6 +36,7 @@ public class Inicio {
 		libro.setEdicion(2);
 		libro.setContenido("asdfasdasdasdasdasdas");
 		libro.setPortada("https://www.tematika.com/media/catalog/Ilhsa/Imagenes/701102.jpg");
+		libro.setDisponibilidad(true);
 		daoLibro.insert(libro);
 	
 		Libro libro2 = new Libro();
@@ -45,6 +46,7 @@ public class Inicio {
 		libro2.setEdicion(2);
 		libro2.setContenido("asdfasdasdasdasdasdas");
 		libro2.setPortada("https://images.cdn2.buscalibre.com/fit-in/360x360/fa/14/fa148b6ed6ee485f82661b44d6fa1b80.jpg");
+		libro2.setDisponibilidad(true);
 		daoLibro.insert(libro2);
 		
 		
@@ -56,8 +58,8 @@ public class Inicio {
 		daoUsuario.insert(usuario);
 		
 		Usuario usuario2 = new Usuario();
-		usuario2.setUsername("userprueba");
-		usuario2.setPassword("xyz987");
+		usuario2.setUsername("erick");
+		usuario2.setPassword("erick123");
 		usuario2.setEmail("user@gmail.com");
 		usuario2.setRole("user");
 		daoUsuario.insert(usuario2);
