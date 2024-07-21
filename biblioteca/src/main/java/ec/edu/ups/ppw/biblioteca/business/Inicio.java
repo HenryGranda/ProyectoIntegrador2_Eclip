@@ -63,24 +63,6 @@ public class Inicio {
 		usuario2.setEmail("user@gmail.com");
 		usuario2.setRole("user");
 		daoUsuario.insert(usuario2);
-		
-		Prestamo prestamo = new Prestamo();
-		prestamo.setUsuario(usuario2);
-		prestamo.setLibro(libro);
-		Date fechaPrestamo = DateUtil.createDate(2023, 7, 18);
-		Date fechaDevolucion = DateUtil.createDate(2023, 7, 25);
-		prestamo.setFechaPrestamo(fechaPrestamo);
-		prestamo.setFechaDevolucion(fechaDevolucion);
-		daoPrestamo.insert(prestamo);
-		
-		Prestamo prestamo2 = new Prestamo();
-		prestamo2.setUsuario(usuario);
-		prestamo2.setLibro(libro2);
-		prestamo2.setFechaPrestamo(fechaPrestamo);
-		prestamo2.setFechaDevolucion(fechaDevolucion);
-		daoPrestamo.insert(prestamo2);
-		
-		System.out.println(prestamo2.toString());
 
 	}
 }
