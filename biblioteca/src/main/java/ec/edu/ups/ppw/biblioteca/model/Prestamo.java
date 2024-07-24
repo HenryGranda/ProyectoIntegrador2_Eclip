@@ -69,9 +69,4 @@ public class Prestamo {
         this.usuario = usuario;
     }
 
-    @Override
-    public String toString() {
-        return "Prestamo [prestamoId=" + prestamoId + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion="
-                + fechaDevolucion + ", libro=" + libro.getLibroId() + ", usuario=" + usuario.getUsuarioId() + "]";
-    }
 }
