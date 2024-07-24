@@ -11,6 +11,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -65,7 +66,8 @@ public class LibroService {
 	
 	@GET
 	@Path("/{id}")
-	public Libro get(int id) {
+	@Produces("application/json")
+	public Libro get(@PathParam("id") int id) {
 		Libro libro;
 		try {
 			libro = gLibros.getLibro(id);
