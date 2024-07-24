@@ -8,8 +8,9 @@ import org.codehaus.jettison.json.JSONObject;
 
 import ec.edu.ups.ppw.biblioteca.business.GestionUsuarios;
 import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
+import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
-import ec.edu.ups.ppw.biblioteca.util.JWTutil;
+import ec.edu.ups.ppw.biblioteca.util.JwtProvider;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -21,21 +22,52 @@ import jakarta.ws.rs.Path;
 
 @Named("loginusu")
 @RequestScoped
-@Path("/auth")
 public class LoginUsuarios {
-	
-	@Inject
-    private GestionUsuarios gestionUsuarios;
-	
+	private String username;
+    private String password;
+
     @Inject
     private UsuarioDAO usuarioDAO;
     
     @Inject
-    private JWTutil jwtutil; // Inyectar JwtProvider
+    private JwtProvider jwtProvider; // Inyectar JwtProvider
 
-	private String username;
-    private String password;
+    public void login() {
+        Usuario usuario = usuarioDAO.validateUser(username, password);
+        if (usuario != null) {
+            String jwt = jwtProvider.createToken(username, usuario.getRoles(), usuario.getEmail()); // Generar el JWT
 
+            // Determinar el rol del usuario
+            boolean isAdmin = usuario.getRoles().stream()
+                .anyMatch(rol -> rol.getRolNombre().equals(Rolnombres.ROLE_ADMIN));
+
+            // Redirigir a Angular con el token JWT y el rol
+            try {
+                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+                String redirectUrl = "http://localhost:4200/";
+                if (isAdmin) {
+                    redirectUrl += "admin-dashboard?token=" + jwt;
+                } else {
+                    redirectUrl += "user-dashboard?token=" + jwt;
+                }
+                response.sendRedirect(redirectUrl);
+                FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Redirigir a la página de error
+            try {
+                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+                response.sendRedirect("error.xhtml");
+                FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Getters y setters para username y password
     public String getUsername() {
         return username;
     }
@@ -51,63 +83,4 @@ public class LoginUsuarios {
     public void setPassword(String password) {
         this.password = password;
     }
-
-   /* @POST
-    @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(Usuario usuario) throws JSONException {
-        Usuario user = gestionUsuarios.iniciarSesion(usuario.getUsername(),usuario.getPassword());
-
-        if (user != null && user.getPassword().equals(usuario.getPassword())) {
-            String token = jwtutil.createToken(user);
-            JSONObject response = new JSONObject();
-            response.put("token", token);
-            return Response.ok(response.toString()).build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Login incorrecto").build();
-        }
-    }*/
-
-
-    
-    /*public String loginpage() {
-        Usuario usuario = gestionUsuarios.iniciarSesion(username, password);
-        if (usuario != null) {
-            // Login exitoso, puedes redirigir al usuario a la página principal
-            return "/RegistroUsu.xhtml?faces-redirect=true";
-        } else {
-            // Login incorrecto, muestra un mensaje de error
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario o contraseña incorrectos"));
-            return null;
-        }
-    }*/
-    
-    public void login() {
-        Usuario usuario = usuarioDAO.validarusu(username, password);
-        if (usuario != null) {
-            String jwt = jwtutil.createToken(usuario.getUsername(), usuario.getRole(), usuario.getEmail());// Generar el JWT
-
-            // Redirigir a Angular con el token JWT
-            try {
-                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.sendRedirect("http://localhost:4200/dashboard?token=" + jwt);
-                FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            // Redirigir a la página de error
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario o contraseña incorrectos"));
-            try {
-                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                //response.sendRedirect("");
-                FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-	
-
 }

@@ -1,13 +1,18 @@
 package ec.edu.ups.ppw.biblioteca.business;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import ec.edu.ups.ppw.biblioteca.dao.LibroDAO;
 import ec.edu.ups.ppw.biblioteca.dao.PrestamoDAO;
+import ec.edu.ups.ppw.biblioteca.dao.RolDAO;
 import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
+import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
 import ec.edu.ups.ppw.biblioteca.model.DateUtil;
 import ec.edu.ups.ppw.biblioteca.model.Libro;
 import ec.edu.ups.ppw.biblioteca.model.Prestamo;
+import ec.edu.ups.ppw.biblioteca.model.Rol;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
@@ -27,8 +32,40 @@ public class Inicio {
 	@Inject
 	private PrestamoDAO daoPrestamo;
 	
+    @Inject
+    private RolDAO daoRol;
+	
 	@PostConstruct
 	public void init(){
+		
+        Rol rolAdmin = new Rol(Rolnombres.ROLE_ADMIN);
+        daoRol.insert(rolAdmin);
+        
+        Rol rolUser = new Rol(Rolnombres.ROLE_USER);
+        daoRol.insert(rolUser);
+
+        // Crear un conjunto de roles
+        Set<Rol> rolesAdmin = new HashSet<>();
+        rolesAdmin.add(rolAdmin);
+
+        Set<Rol> rolesUser = new HashSet<>();
+        rolesUser.add(rolUser);
+
+        // Crear y persistir usuarios
+        Usuario usuarioAdmin = new Usuario();
+        usuarioAdmin.setUsername("admin123");
+        usuarioAdmin.setPassword("admin123");
+        usuarioAdmin.setEmail("admin@gmail.com");
+        usuarioAdmin.setRoles(rolesAdmin);
+        daoUsuario.insert(usuarioAdmin);
+
+        Usuario usuarioUser = new Usuario();
+        usuarioUser.setUsername("user123");
+        usuarioUser.setPassword("user123");
+        usuarioUser.setEmail("user@gmail.com");
+        usuarioUser.setRoles(rolesUser);
+        daoUsuario.insert(usuarioUser);
+		
 		Libro libro = new Libro();
 		libro.setTitulo("Ludopatía");
 		libro.setAutor("Henry Granda");
@@ -48,22 +85,10 @@ public class Inicio {
 		daoLibro.insert(libro2);
 		
 		
-		Usuario usuario = new Usuario();
-		usuario.setUsername("adminprueba");
-		usuario.setPassword("abc123");
-		usuario.setEmail("admin@gmail.com");
-		usuario.setRole("admin");
-		daoUsuario.insert(usuario);
-		
-		Usuario usuario2 = new Usuario();
-		usuario2.setUsername("userprueba");
-		usuario2.setPassword("xyz987");
-		usuario2.setEmail("user@gmail.com");
-		usuario2.setRole("user");
-		daoUsuario.insert(usuario2);
+
 		
 		Prestamo prestamo = new Prestamo();
-		prestamo.setUsuario(usuario2);
+		prestamo.setUsuario(usuarioUser);
 		prestamo.setLibro(libro);
 		Date fechaPrestamo = DateUtil.createDate(2023, 7, 18);
 		Date fechaDevolucion = DateUtil.createDate(2023, 7, 25);
@@ -72,7 +97,7 @@ public class Inicio {
 		daoPrestamo.insert(prestamo);
 		
 		Prestamo prestamo2 = new Prestamo();
-		prestamo2.setUsuario(usuario);
+		prestamo2.setUsuario(usuarioUser);
 		prestamo2.setLibro(libro2);
 		prestamo2.setFechaPrestamo(fechaPrestamo);
 		prestamo2.setFechaDevolucion(fechaDevolucion);
