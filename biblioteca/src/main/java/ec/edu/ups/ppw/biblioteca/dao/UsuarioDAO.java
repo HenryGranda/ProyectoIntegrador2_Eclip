@@ -5,7 +5,6 @@ import java.util.Set;
 
 import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
 import ec.edu.ups.ppw.biblioteca.model.Libro;
-import ec.edu.ups.ppw.biblioteca.model.Rol;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import ec.edu.ups.ppw.biblioteca.util.PercistenceManager;
 import jakarta.ejb.Stateless;
@@ -19,9 +18,8 @@ import jakarta.persistence.TypedQuery;
 public class UsuarioDAO {
 	
 	@PersistenceContext
-    private EntityManager em;
+	private EntityManager em; 
 	
-
 	public void insert(Usuario usuario) {
 		em.persist(usuario);
 	}
@@ -40,48 +38,30 @@ public class UsuarioDAO {
 	    }
 	}
 	
-	public Usuario read(int id) throws Exception {
-	    Usuario usuario = em.find(Usuario.class, id);
+	public Usuario read(int id) throws Exception{
+		Usuario usuario = em.find(Usuario.class, id);
 	    if (usuario == null) {
 	        throw new Exception("Usuario con id " + id + " no encontrado.");
 	    }
-	    // Los roles se cargan automáticamente debido a FetchType.EAGER
 	    return usuario;
 	}
-	public List<Usuario> getAll() {
-	    String jpql = "SELECT u FROM Usuario u LEFT JOIN FETCH u.roles";
-	    TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-	    return query.getResultList();
-	}
 		
-
-    public static boolean validar(String username, String password) {
-        return (username.equals("admin") && password.equals("admin"));
-    }
-
-    public static Usuario obtenerUsuario(String username, String password) {
-        Set<Rol> roles = new HashSet<>();
-        
-        if (validar(username, password)) {
-            roles.add(new Rol(Rolnombres.ROLE_ADMIN));
-            return new Usuario(1, "admin", "admin", roles , "admin@gmail");
-        } else {
-            roles.add(new Rol(Rolnombres.ROLE_USER));
-            return new Usuario(2, username, password, roles, "user@gmail.com");
-        }
-    }
-    
-    
-    public Usuario validateUser(String username, String password) {
-        try {
-            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class);
-            query.setParameter("username", username);
-            query.setParameter("password", password);
-            return query.getSingleResult();
-        } catch (Exception e) {
-            return null; // Usuario no encontrado o contraseña incorrecta
-        }
-    }
+	public List<Usuario> getAll(){
+		String jpql = "SELECT u FROM Usuario u";
+		Query query = em.createQuery(jpql, Usuario.class);
+		return query.getResultList();
+	}
+	
+	public Usuario validarusu(String username, String password) {
+	    TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class);
+	    query.setParameter("username", username);
+	    query.setParameter("password", password);
+	    try {
+	        return query.getSingleResult();
+	    } catch (NoResultException e) {
+	        return null;
+	    }
+	}
     
 
 }

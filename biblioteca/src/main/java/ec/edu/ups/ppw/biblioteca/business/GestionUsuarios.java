@@ -31,14 +31,14 @@ public class GestionUsuarios {
 	}
 	
 	public void createUsuario(Usuario usuario) throws Exception {
-		if(usuario.getId() < 0) {
+		if(usuario.getUsuarioId() < 0) {
 			throw new Exception("Id Incorrecto");
 		}
 		daoUsuario.insert(usuario);
 	}
 	
 	public void updateUsuario(Usuario usuario) throws Exception{
-		if(usuario.getId() < 0) {
+		if(usuario.getUsuarioId() < 0) {
 			throw new Exception("Id Incorrecta");
 		}
 		daoUsuario.update(usuario);
@@ -81,5 +81,4 @@ public class GestionUsuarios {
             return null;
         }
     }
-
 }

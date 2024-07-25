@@ -2,17 +2,10 @@ package ec.edu.ups.ppw.biblioteca.util;
 
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import ec.edu.ups.ppw.biblioteca.model.Rol;
-import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -21,23 +14,23 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ApplicationScoped
-public class JwtProvider {
-	
-	private final String secretKey = "Miclave123";
-    private final long validityInMilliseconds = 3600000; // 1 hora
+public class JWTutil {
+    
+    private static final String SECRET_KEY = "secret";
+    private static final long EXPIRATION_TIME = 86400000; // 1 day
 
     private SecretKey generateKey() {
-        byte[] encodeKey = Base64.getDecoder().decode(secretKey);
+        byte[] encodeKey = Base64.getDecoder().decode(SECRET_KEY);
         return new SecretKeySpec(encodeKey, 0, encodeKey.length, "HmacSHA256");
     }
 
-    public String createToken(String username, Set<Rol> roles,String email) {
+    public String createToken(String username, String role, String email) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", roles.stream().map(Rol::getRolNombre).collect(Collectors.toList()));
+        claims.put("role", role);
         claims.put("email", email);
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + EXPIRATION_TIME);
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -21,94 +21,77 @@ import jakarta.validation.constraints.NotNull;
 @Table(name="TBL_USUARIO")
 public class Usuario {
 	
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name="user_ID")
-	    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="usu_id")
+	private int usuarioId;
+	
+	@Column(name="usu_username")
+    private String username;
+	
+	@Column(name="usu_password")
+    private String password;
+	
+	@Column(name="usu_email")
+    private String email;
+	
+	@Column(name="usu_role")
+    private String role; // "USER" o "ADMIN"
+	
+	@OneToMany(mappedBy="usuario")
+    private List<Prestamo> prestamo;
 
-	    @NotNull
-	    @Column(name = "username", unique = true)
-	    private String username;
-
-	    @NotNull
-	    @Column(name = "user_password")
-	    private String password;
-
-	    @NotNull
-	    @ManyToMany(fetch = FetchType.EAGER) // Añadir FetchType.EAGER para cargar los roles junto con el usuario
-	    @JoinTable(
-	        name = "usuario_rol", // Nombre de la tabla intermedia
-	        joinColumns = @JoinColumn(name = "usuario_id"), // Columna de Usuario
-	        inverseJoinColumns = @JoinColumn(name = "rol_id") // Columna de Rol
-	    )
-	    private Set<Rol> roles = new HashSet<>();
-
-
-	    @NotNull
-	    @Column(unique = true)
-	    private String email;
-
-	    
-	    public Usuario() {}
-	    
+    public Usuario() {
+        // Constructor por defecto sin parámetros
+    }
 
 
-		public Usuario(int id, @NotNull String username, @NotNull String password, @NotNull Set<Rol> roles,
-				@NotNull String email) {
-			super();
-			this.id = id;
-			this.username = username;
-			this.password = password;
-			this.roles = roles;
-			this.email = email;
-		}
+    public Usuario(String username, String password, String email, String role) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+	}
+
+	public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
 
-
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
+	public int getUsuarioId() {
+		return usuarioId;
+	}
 
 
-
-		public String getUsername() {
-			return username;
-		}
-
-		public void setUsername(String username) {
-			this.username = username;
-		}
-
-		public String getPassword() {
-			return password;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
-		}
-
-		public Set<Rol> getRoles() {
-			return roles;
-		}
-
-		public void setRoles(Set<Rol> roles) {
-			this.roles = roles;
-		}
-
-
-
-		public String getEmail() {
-			return email;
-		}
-
-
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-    
+	public void setUsuarioId(int usuarioId) {
+		this.usuarioId = usuarioId;
+	}
 }

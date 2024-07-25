@@ -2,7 +2,6 @@ package ec.edu.ups.ppw.biblioteca.controller;
 
 import ec.edu.ups.ppw.biblioteca.business.GestionUsuarios;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
-import ec.edu.ups.ppw.biblioteca.util.JwtProvider;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;

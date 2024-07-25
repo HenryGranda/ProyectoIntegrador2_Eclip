@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import ec.edu.ups.ppw.biblioteca.business.GestionUsuarios;
-import ec.edu.ups.ppw.biblioteca.dao.RolDAO;
 import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
 import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
-import ec.edu.ups.ppw.biblioteca.model.Rol;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
@@ -21,71 +19,57 @@ import jakarta.transaction.Transactional;
 @RequestScoped
 public class RegistroUsuarios {
 
-	private String username;
-    private String email;
-    private String password;
+	@Inject
+    private GestionUsuarios gUsuarios;
 
-    @EJB
-    private UsuarioDAO usuarioDAO;
+    private Usuario usuario = new Usuario();
+    private List<Usuario> listadoUsuarios;
+    private String message;
 
-    @EJB
-    private RolDAO rolDAO;
+    @PostConstruct
+    public void init() {
+        listadoUsuarios = gUsuarios.getUsuarios();
+    }
 
-    // Getters and Setters for username, email, and password
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    @Transactional
-    public String signup() {
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Usuario> getListadoUsuarios() {
+        return listadoUsuarios;
+    }
+
+    public void setListadoUsuarios(List<Usuario> listadoUsuarios) {
+        this.listadoUsuarios = listadoUsuarios;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String registrar() {
         try {
-            // Crear un conjunto de roles (suponiendo que ya existen en la base de datos)
-            Set<Rol> roles = new HashSet<>();
-            Rol rolUser = rolDAO.findByName(Rolnombres.ROLE_USER);
-            if (rolUser == null) {
-                rolUser = new Rol(Rolnombres.ROLE_USER);
-                rolDAO.insert(rolUser);
-            }
-            roles.add(rolUser);
-
-            // Crear un usuario de ejemplo
-            Usuario usuario = new Usuario();
-            usuario.setUsername(username);
-            usuario.setPassword(password);
-            usuario.setEmail(email);
-            usuario.setRoles(roles);
-
-            // Insertar el usuario en la base de datos
-            usuarioDAO.insert(usuario);
-
-            // Redirigir al login después del registro
-            return "LoginUsu.xhtml?faces-redirect=true";
+            usuario.setRole("user"); // Asignar el rol automáticamente
+            gUsuarios.createUsuario(usuario);
+            this.message = "Registro exitoso";
+            clearFields();
+            return null;
         } catch (Exception e) {
-            // Manejar errores de registro
             e.printStackTrace();
+            this.message = "Error al registrar";
             return null;
         }
     }
 
-    // Getters and setters for username, email, and password
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    private void clearFields() {
+        this.usuario = new Usuario();
     }
 }
