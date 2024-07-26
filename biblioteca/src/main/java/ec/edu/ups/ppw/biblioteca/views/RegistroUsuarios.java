@@ -57,11 +57,11 @@ public class RegistroUsuarios {
 
     public String registrar() {
         try {
-            usuario.setRole("user"); // Asignar el rol automáticamente
+            usuario.setRole("user");
             gUsuarios.createUsuario(usuario);
             this.message = "Registro exitoso";
             clearFields();
-            return null;
+            return "LoginUsu?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
             this.message = "Error al registrar";
