@@ -1,0 +1,141 @@
+/* Estilos generales */
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para el fondo completo que cubre toda la pantalla */
+body {
+    background-image: url('https://tuintranet.cl/sistema/App_Themes/Login/assets/img/login-bg.png'); /* URL de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+    background-position: center; /* Centra la imagen en el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Fija la imagen en su lugar cuando se desplaza */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+/* Estilo para el contenedor principal */
+.login-container {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH8e19ONejz58uMdf5qrl7Fi02A5071riPjW-DopG6rBs8ooI2H1jtuP-nw-_ImPSAPD8&usqp=CAU'); /* URL de la imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+    background-position: center; /* Centra la imagen en el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Ajustar el ancho del contenedor */
+    max-width: 100%; /* Permitir que el contenedor se ajuste en pantallas pequeñas */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+/* Estilo para el formulario de login */
+.login-form {
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad para que el fondo sea visible */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-icon {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    color: #007bff; /* Color azul para el icono */
+}
+
+.input-icon .icon {
+    fill: none; /* Eliminar relleno predeterminado */
+    stroke: #000000; /* Color azul para el borde del icono */
+}
+
+.input-field {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+    height: 48px; /* Asegurando que ambos campos tengan la misma altura */
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.submit-btn {
+    width: 150px; /* Ajustar el ancho a un valor específico */
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 20px;
+    display: block; /* Asegura que el botón sea un bloque */
+    margin-left: auto; /* Centra el botón horizontalmente */
+    margin-right: auto; /* Centra el botón horizontalmente */
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.sign-up-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.sign-up-link:hover {
+    text-decoration: underline;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: none; /* Eliminar relleno predeterminado */
+    stroke: #000000; /* Color azul para el borde del icono */
+}
+
+
