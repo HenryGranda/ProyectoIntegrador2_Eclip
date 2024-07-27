@@ -236,7 +236,20 @@
 		    <artifactId>spring-boot-starter-security</artifactId>
 		    <version>3.3.1</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+		    <groupId>jakarta.mail</groupId>
+		    <artifactId>jakarta.mail-api</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.activation</groupId>
+		    <artifactId>jakarta.activation-api</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
 
+		
         <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-root -->
 		<dependency>
 		    <groupId>io.jsonwebtoken</groupId>

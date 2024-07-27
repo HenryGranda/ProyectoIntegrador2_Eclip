@@ -1,16 +1,8 @@
 package ec.edu.ups.ppw.biblioteca.business;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import ec.edu.ups.ppw.biblioteca.dao.LibroDAO;
-import ec.edu.ups.ppw.biblioteca.dao.PrestamoDAO;
 import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
-import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
-import ec.edu.ups.ppw.biblioteca.model.DateUtil;
 import ec.edu.ups.ppw.biblioteca.model.Libro;
-import ec.edu.ups.ppw.biblioteca.model.Prestamo;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
@@ -26,10 +18,7 @@ public class Inicio {
 	
 	@Inject
 	private UsuarioDAO daoUsuario;
-	
-	@Inject
-	private PrestamoDAO daoPrestamo;
-	
+
 	@PostConstruct
 	public void init(){
 		Libro libro = new Libro();
@@ -66,6 +55,6 @@ public class Inicio {
 		usuario2.setEmail("user@gmail.com");
 		usuario2.setRole("user");
 		daoUsuario.insert(usuario2);
-
+		
 	}
 }
