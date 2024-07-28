@@ -34,6 +34,7 @@ body {
     width: 400px; /* Ajustar el ancho del contenedor */
     max-width: 100%; /* Permitir que el contenedor se ajuste en pantallas pequeñas */
     margin: 0 auto; /* Centra el contenedor horizontalmente */
+    min-height: 600px;
 }
 
 /* Estilo para el formulario de login */
