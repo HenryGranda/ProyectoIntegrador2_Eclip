@@ -1,14 +1,19 @@
 package ec.edu.ups.ppw.biblioteca.views;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import ec.edu.ups.ppw.biblioteca.business.GestionUsuarios;
+import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
+import ec.edu.ups.ppw.biblioteca.enums.Rolnombres;
 import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 
 @Named("registroUsuario")
 @RequestScoped
@@ -54,12 +59,12 @@ public class RegistroUsuarios {
         try {
             usuario.setRole("user");
             gUsuarios.createUsuario(usuario);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", null));
+            this.message = "Registro exitoso";
             clearFields();
             return "LoginUsu?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al registrar: " + e.getMessage(), null));
+            this.message = "Error al registrar";
             return null;
         }
     }
