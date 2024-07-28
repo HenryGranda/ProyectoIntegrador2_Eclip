@@ -1,5 +1,4 @@
-/* Estilos generales */
-
+@charset "ISO-8859-1";
 
 html, body {
     height: 100%;
@@ -32,10 +31,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 400px; /* Ajustar el ancho del contenedor */
-    max-width: 100%; /* Permitir que el contenedor se ajuste en pantallas pequeÃ±as */
+    max-width: 100%; /* Permitir que el contenedor se ajuste en pantallas pequeñas */
     margin: 0 auto; /* Centra el contenedor horizontalmente */
-    min-height: 600px;
 }
+
 
 /* Estilo para el formulario de login */
 .login-form {
@@ -95,7 +94,7 @@ body {
 }
 
 .submit-btn {
-    width: 150px; /* Ajustar el ancho a un valor especÃ­fico */
+    width: 150px; /* Ajustar el ancho a un valor específico */
     padding: 15px;
     background-color: #007bff;
     color: #fff;
@@ -104,9 +103,9 @@ body {
     cursor: pointer;
     font-size: 1.2em;
     margin-top: 20px;
-    display: block; /* Asegura que el botÃ³n sea un bloque */
-    margin-left: auto; /* Centra el botÃ³n horizontalmente */
-    margin-right: auto; /* Centra el botÃ³n horizontalmente */
+    display: block; /* Asegura que el botón sea un bloque */
+    margin-left: auto; /* Centra el botón horizontalmente */
+    margin-right: auto; /* Centra el botón horizontalmente */
 }
 
 .submit-btn:hover {
@@ -138,5 +137,3 @@ body {
     fill: none; /* Eliminar relleno predeterminado */
     stroke: #000000; /* Color azul para el borde del icono */
 }
-
-

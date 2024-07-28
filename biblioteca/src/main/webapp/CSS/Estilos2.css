@@ -22,18 +22,7 @@ body {
 }
 
 /* Estilo para el contenedor principal */
-.container {
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH8e19ONejz58uMdf5qrl7Fi02A5071riPjW-DopG6rBs8ooI2H1jtuP-nw-_ImPSAPD8&usqp=CAU'); /* URL de la imagen */
-    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
-    background-position: center; /* Centra la imagen en el contenedor */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Ajustar el ancho del contenedor */
-    max-width: 100%; /* Permitir que el contenedor se ajuste en pantallas pequeñas */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-}
+
 
 /* Estilo para el formulario de login */
 .Rform {

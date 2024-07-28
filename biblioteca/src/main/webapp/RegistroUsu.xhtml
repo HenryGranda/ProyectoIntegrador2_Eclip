@@ -15,16 +15,19 @@
             <h:form>
                 <h:messages globalOnly="true" style="color: red;"/>
                 <h:panelGroup styleClass="form-group">
-                    <h:inputText id="floating_username" value="#{registroUsuario.usuario.username}" styleClass="input-field" required="true"/>
+                    <h:inputText id="floating_username" value="#{registroUsuario.usuario.username}" styleClass="input-field" required="true" requiredMessage="Campo vacío"/>
                     <h:outputLabel for="floating_username" value="Usuario" styleClass="input-label"/>
+                    <h:message for="floating_username" styleClass="error-message"/>
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group">
-                    <h:inputText id="floating_email" value="#{registroUsuario.usuario.email}" styleClass="input-field" required="true"/>
+                    <h:inputText id="floating_email" value="#{registroUsuario.usuario.email}" styleClass="input-field" required="true" requiredMessage="Campo vacío"/>
                     <h:outputLabel for="floating_email" value="Correo electronico" styleClass="input-label"/>
+                    <h:message for="floating_email" styleClass="error-message"/>
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group">
-                    <h:inputSecret id="floating_password" value="#{registroUsuario.usuario.password}" styleClass="input-field" required="true"/>
+                    <h:inputSecret id="floating_password" value="#{registroUsuario.usuario.password}" styleClass="input-field" required="true" requiredMessage="Campo vacío"/>
                     <h:outputLabel for="floating_password" value="Contraseña" styleClass="input-label"/>
+                    <h:message for="floating_password" styleClass="error-message"/>
                 </h:panelGroup>
                 <h:commandButton value="Registrarse" action="#{registroUsuario.registrar}" styleClass="submit-btn"/>
                 <h:outputLink value="LoginUsu.xhtml" styleClass="sign-up-link">Inicia sesión aquí</h:outputLink>
