@@ -1,9 +1,7 @@
 package ec.edu.ups.ppw.biblioteca.business;
 
 import ec.edu.ups.ppw.biblioteca.dao.LibroDAO;
-import ec.edu.ups.ppw.biblioteca.dao.UsuarioDAO;
 import ec.edu.ups.ppw.biblioteca.model.Libro;
-import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
@@ -15,9 +13,6 @@ public class Inicio {
 	
 	@Inject
 	private LibroDAO daoLibro;
-	
-	@Inject
-	private UsuarioDAO daoUsuario;
 
 	@PostConstruct
 	public void init(){
@@ -40,21 +35,5 @@ public class Inicio {
 		libro2.setPortada("https://images.cdn2.buscalibre.com/fit-in/360x360/fa/14/fa148b6ed6ee485f82661b44d6fa1b80.jpg");
 		libro2.setDisponibilidad(true);
 		daoLibro.insert(libro2);
-		
-		
-		Usuario usuario = new Usuario();
-		usuario.setUsername("adminprueba");
-		usuario.setPassword("abc123");
-		usuario.setEmail("admin@gmail.com");
-		usuario.setRole("admin");
-		daoUsuario.insert(usuario);
-		
-		Usuario usuario2 = new Usuario();
-		usuario2.setUsername("erick");
-		usuario2.setPassword("erick123");
-		usuario2.setEmail("user@gmail.com");
-		usuario2.setRole("user");
-		daoUsuario.insert(usuario2);
-		
 	}
 }
