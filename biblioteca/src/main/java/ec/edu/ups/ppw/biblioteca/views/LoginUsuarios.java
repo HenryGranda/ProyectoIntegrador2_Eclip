@@ -56,12 +56,13 @@ public class LoginUsuarios {
     public void login() {
         Usuario usuario = usuarioDAO.validarusu(username, password);
         if (usuario != null) {
-            String jwt = jwtutil.createToken(usuario.getUsername(), usuario.getRole(), usuario.getEmail());// Generar el JWT
+            String jwt = jwtutil.createToken(usuario.getUsername(), usuario.getRole(), usuario.getEmail()); // Generar el JWT
 
-            // Redirigir a Angular con el token JWT
+            // Redirigir a Angular con el token en la URL
             try {
+                String redirectUrl = "http://localhost:4200/dashboard?token=" + jwt;
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.sendRedirect("http://localhost:4200/libros?token=" + jwt);
+                response.sendRedirect(redirectUrl);
                 FacesContext.getCurrentInstance().responseComplete(); // Marcar la respuesta como completada
             } catch (Exception e) {
                 e.printStackTrace();
@@ -78,4 +79,6 @@ public class LoginUsuarios {
             }
         }
     }
+
+
 }
