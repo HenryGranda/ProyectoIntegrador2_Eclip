@@ -48,5 +48,19 @@ public class Inicio {
 		usuario.setEmail("admin@gmail.com");
 		daoUsuario.insert(usuario);
 		
+		Usuario usuario2 = new Usuario();
+		usuario2.setUsername("Erick");
+		usuario2.setPassword("12345678963.");
+		usuario2.setEmail("angeloulloa69@gmail.com");
+		usuario2.setRole("user");
+		daoUsuario.insert(usuario2);
+		
+		Usuario usuario3 = new Usuario();
+		usuario3.setUsername("Angelo");
+		usuario3.setPassword("123456789.");
+		usuario3.setEmail("huambi123@gmail.com");
+		usuario3.setRole("user");
+		daoUsuario.insert(usuario3);
+		
 	}
 }

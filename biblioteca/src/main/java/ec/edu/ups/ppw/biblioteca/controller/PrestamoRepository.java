@@ -24,4 +24,3 @@ public class PrestamoRepository {
         return query.getResultList();
     }
 }
-
