@@ -20,6 +20,12 @@ public class Prestamo {
     @Column(name="fecha_devolucion")
     private Date fechaDevolucion;
 
+    @Column(name="devuelto")
+    private boolean devuelto;
+    
+    @Column(name="entregado")
+    private boolean entregado;
+    
     @ManyToOne
     @JoinColumn(name="lib_id")
     private Libro libro;
@@ -68,4 +74,23 @@ public class Prestamo {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+	public boolean isDevuelto() {
+		return devuelto;
+	}
+
+	public void setDevuelto(boolean devuelto) {
+		this.devuelto = devuelto;
+	}
+
+	public boolean isEntregado() {
+		return entregado;
+	}
+
+	public void setEntregado(boolean entregado) {
+		this.entregado = entregado;
+	}
+	
+	
+    
 }

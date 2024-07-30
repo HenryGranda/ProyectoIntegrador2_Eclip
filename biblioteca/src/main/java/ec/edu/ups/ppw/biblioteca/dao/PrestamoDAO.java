@@ -2,12 +2,13 @@ package ec.edu.ups.ppw.biblioteca.dao;
 
 import java.util.List;
 
+import ec.edu.ups.ppw.biblioteca.model.Libro;
 import ec.edu.ups.ppw.biblioteca.model.Prestamo;
-import ec.edu.ups.ppw.biblioteca.model.Usuario;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 @Stateless
 public class PrestamoDAO {
@@ -22,6 +23,10 @@ public class PrestamoDAO {
 	public void update(Prestamo prestamo) {
 		em.merge(prestamo);
 	}
+	
+	public void update(Libro libros) {
+        em.merge(libros);
+    }
 	
 	public void delete(int id) throws Exception{
 		Prestamo prestamo = this.read(id);
@@ -46,5 +51,21 @@ public class PrestamoDAO {
 		Query query = em.createQuery(jpql, Prestamo.class);
 		return query.getResultList();
 	}
+
+	
+	public List<Prestamo> getPrestamosActivos() {
+        String jpql = "SELECT p FROM Prestamo p WHERE p.devuelto = false";
+        TypedQuery<Prestamo> query = em.createQuery(jpql, Prestamo.class);
+        return query.getResultList();
+    }
+	
+	// Método en el DAO para obtener préstamos no entregados de un usuario
+	public List<Prestamo> getPrestamosNoEntregadosPorUsuario(String username) {
+	    String jpql = "SELECT p FROM Prestamo p WHERE p.entregado = false AND p.usuario.username = :username";
+	    TypedQuery<Prestamo> query = em.createQuery(jpql, Prestamo.class);
+	    query.setParameter("username", username);
+	    return query.getResultList();
+	}
+
 }
 

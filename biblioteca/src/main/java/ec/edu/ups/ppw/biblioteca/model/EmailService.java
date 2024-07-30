@@ -4,11 +4,14 @@ import java.util.Properties;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -37,7 +40,14 @@ public class EmailService {
         message.setFrom(new InternetAddress(username));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
         message.setSubject(subject);
-        message.setText(body);
+        
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(body, "text/html");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+
+        message.setContent(multipart);
 
         Transport.send(message);
         System.out.println("Correo enviado a: " + to);
