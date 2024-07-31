@@ -34,6 +34,9 @@ public class Libro {
     @Column(name="lib_disponibilidad")
     private Boolean disponibilidad;
     
+    @Column(name = "lib_reservado")
+    private Boolean reservado;
+    
     @OneToMany(mappedBy="libro")
     private List<Prestamo> prestamo;
 
@@ -100,6 +103,14 @@ public class Libro {
 
 	public void setDisponibilidad(Boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
+	}
+
+	public Boolean getReservado() {
+		return reservado;
+	}
+
+	public void setReservado(Boolean reservado) {
+		this.reservado = reservado;
 	}
     
     
